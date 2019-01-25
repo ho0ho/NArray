@@ -9,6 +9,7 @@ namespace narrayPark {
 
 	class NArray
 	{
+		friend Int;
 	private:
 		int dim;
 		int *size;
@@ -38,7 +39,8 @@ namespace narrayPark {
 		NArray *arr;
 
 	public:
-		Int(int index, int _level, void *_data = NULL, NArray *arr = NULL);
+		Int(int index, int _level, void *_data = NULL, NArray *_arr = NULL);
+		Int(const Int& other);
 
 	};
 

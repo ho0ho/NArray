@@ -72,4 +72,6 @@ namespace narrayPark {
 			data = static_cast<void *>(static_cast<NArray::Way *>(static_cast<NArray::Way *>(data)->next) + index);
 	}
 
+	Int::Int(const Int& other) : level(other.level), data(other.data), arr(other.arr) {}
+
 } // narrayPark
