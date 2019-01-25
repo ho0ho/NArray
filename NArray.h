@@ -42,6 +42,10 @@ namespace narrayPark {
 		Int(int index, int _level, void *_data = NULL, NArray *_arr = NULL);
 		Int(const Int& other);
 
+		Int operator [] (const int index);
+		operator int();
+	
+
 	};
 
 } // narrayPark

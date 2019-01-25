@@ -74,4 +74,15 @@ namespace narrayPark {
 
 	Int::Int(const Int& other) : level(other.level), data(other.data), arr(other.arr) {}
 
+	Int Int::operator [] (const int index) 
+	{
+		if (!data) return 0;
+		return Int(index, level + 1, data, arr);
+	}
+
+	Int::operator int() {
+		if (!data) return 0;
+		return *(static_cast<int *>(data));
+	}
+
 } // narrayPark
