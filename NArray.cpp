@@ -85,4 +85,12 @@ namespace narrayPark {
 		return *(static_cast<int *>(data));
 	}
 
+	Int& Int::operator = (const int& right) {
+		if (data) *(static_cast<int *>(data)) = right;
+		return *this;
+	}
+
+	Int::~Int() {}
+	
+
 } // narrayPark

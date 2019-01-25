@@ -44,8 +44,9 @@ namespace narrayPark {
 
 		Int operator [] (const int index);
 		operator int();
+		Int& operator = (const int& right);
 	
-
+		virtual ~Int();
 	};
 
 } // narrayPark
