@@ -1,13 +1,14 @@
 #pragma once
 // narray.h
 
+#include <iostream>
+
 namespace narrayPark {
 	class NArray;
 	class Int;
 
 	class NArray
 	{
-		friend Int;
 	private:
 		int dim;
 		int *size;
@@ -30,9 +31,15 @@ namespace narrayPark {
 	};	// class NArray
 
 	class Int 
-	{ 
-	
-	
+	{
+	private:
+		int level;
+		void *data;
+		NArray *arr;
+
+	public:
+		Int(int index, int _level, void *_data = NULL, NArray *arr = NULL);
+
 	};
 
 } // narrayPark

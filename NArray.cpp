@@ -47,10 +47,29 @@ namespace narrayPark {
 		}
 	}
 
+	Int NArray::operator [] (const int index) 
+	{
+		return Int(index, 1, static_cast<void *>(root), this);
+	}
+
 	NArray::~NArray()
 	{
 		destroy_way(root);
 		delete[] size;
+	}
+
+	Int::Int(int index, int _level, void *_data, NArray *_arr) 
+		: level(_level), arr(_arr)
+	{
+		if (index < 0 || level < 1 || index >= arr->size[level - 1]) {
+			data = NULL;
+			return;
+		}
+
+		if (level == arr->dim) 
+			data = static_cast<void *>(static_cast<int *>(static_cast<NArray::Way *>(data)->next) + index);
+		else
+			data = static_cast<void *>(static_cast<NArray::Way *>(static_cast<NArray::Way *>(data)->next) + index);
 	}
 
 } // narrayPark
