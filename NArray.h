@@ -19,6 +19,28 @@ namespace narrayPark {
 		};
 		Way *root;
 
+		class Iterator
+		{
+		private:
+			int *loc;
+			NArray *arr;
+
+		public:
+			Iterator(NArray *_arr, int *_loc = NULL) : arr(_arr)
+			{
+				loc = new int[arr->dim];
+				for (int i = 0; i < arr->dim; i++)
+					loc[i] = (_loc != NULL ? _loc[i] : 0);
+			}
+
+			Iterator(const Iterator& other) : arr(other.arr) {
+				loc = new int[arr->dim];
+				for (int i = 0; i < arr->dim; i++)
+					loc[i] = other.loc[i];
+			}
+
+		};
+
 	public:
 		NArray(int _dim, int *_size);
 		NArray(const NArray& other);
