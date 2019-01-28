@@ -2,6 +2,10 @@
 
 
 namespace narrayPark {
+	class NArray;
+	class Iterator;
+	class Int;
+
 	NArray::NArray(int _dim, int *_size) : dim(_dim)
 	{
 		size = new int[dim];
@@ -52,6 +56,25 @@ namespace narrayPark {
 		return Int(index, 1, static_cast<void *>(root), this);
 	}
 
+	NArray::Iterator NArray::begin() {
+		int *loc = new int[dim];
+		for (int i = 0; i < dim; i++)
+			loc[i] = 0;
+		Iterator start(this, loc);
+		delete[] loc;
+		return start;		
+	}
+
+	NArray::Iterator NArray::end() {
+		int *loc = new int[dim];
+		loc[0] = size[0];
+		for (int i = 1; i < dim; i++)
+			loc[i] = 0;
+		Iterator end(this, loc);
+		delete[] loc;
+		return end;
+	}
+
 	NArray::~NArray()
 	{
 		destroy_way(root);
@@ -90,7 +113,6 @@ namespace narrayPark {
 		return *this;
 	}
 
-	Int::~Int() {}
-	
+	Int::~Int() {}	
 
 } // narrayPark

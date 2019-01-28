@@ -97,7 +97,6 @@ namespace narrayPark {
 			virtual ~Iterator() {
 				delete[] loc;
 			}
-
 		};
 
 	public:
