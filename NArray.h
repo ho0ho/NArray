@@ -39,6 +39,28 @@ namespace narrayPark {
 					loc[i] = other.loc[i];
 			}
 
+			// prefix
+			Iterator& operator ++ () {
+				if (loc[0] >= arr->size[0]) return (*this);
+
+				bool carry = false;
+				int i = arr->dim - 1;
+				do {
+					loc[i]++;
+					if (i >= arr->size[i] && i >= 1) {
+						carry = true;
+						loc[i--] = 0;
+					}
+					else carry = false;					
+				} while (carry && i >= 0);
+			}
+
+			const Iterator operator ++ (int) {
+				Iterator itr = *this;
+				++(*this);
+				return itr;
+			}
+
 		};
 
 	public:
