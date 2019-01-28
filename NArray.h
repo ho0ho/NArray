@@ -80,6 +80,20 @@ namespace narrayPark {
 				return data;
 			}
 
+			bool operator == (const Iterator& right) {
+				if (arr == right.arr) {
+					int i;
+					for (i = 0; i < arr->dim && loc[i] != right.loc[i]; i++);
+					if (i >= arr->dim) return true;
+					else return false;
+				}
+				else return false;
+			}
+
+			bool operator != (const Iterator& right) {
+				return !(*this == right);
+			}
+
 		};
 
 	public:
