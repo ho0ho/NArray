@@ -94,6 +94,10 @@ namespace narrayPark {
 				return !(*this == right);
 			}
 
+			virtual ~Iterator() {
+				delete[] loc;
+			}
+
 		};
 
 	public:
