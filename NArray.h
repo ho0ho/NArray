@@ -73,6 +73,13 @@ namespace narrayPark {
 				return (*this);
 			}
 
+			Int operator * () {
+				Int data = arr->operator [] (loc[0]);
+				for (int i = 1; i < arr->dim; i++)
+					data = data[loc[i]];
+				return data;
+			}
+
 		};
 
 	public:
