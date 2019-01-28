@@ -1,6 +1,5 @@
 #include "NArray.h"
 
-
 namespace narrayPark {
 	class NArray;
 	class Iterator;
@@ -95,7 +94,10 @@ namespace narrayPark {
 			data = static_cast<void *>(static_cast<NArray::Way *>(static_cast<NArray::Way *>(data)->next) + index);
 	}
 
-	Int::Int(const Int& other) : level(other.level), data(other.data), arr(other.arr) {}
+	Int::Int(const Int& other) 
+		: level(other.level), 
+		  data(other.data), 
+		  arr(other.arr) {}
 
 	Int Int::operator [] (const int index) 
 	{
@@ -103,12 +105,14 @@ namespace narrayPark {
 		return Int(index, level + 1, data, arr);
 	}
 
-	Int::operator int() {
+	Int::operator int() 
+	{
 		if (!data) return 0;
 		return *(static_cast<int *>(data));
 	}
 
-	Int& Int::operator = (const int& right) {
+	Int& Int::operator = (const int& right) 
+	{
 		if (data) *(static_cast<int *>(data)) = right;
 		return *this;
 	}

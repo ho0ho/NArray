@@ -3,6 +3,9 @@
 
 #include <iostream>
 
+#ifndef _NARRAY_H_
+#define _NARRAY_H_
+
 namespace narrayPark {
 	class NArray;
 	class Int;
@@ -107,6 +110,8 @@ namespace narrayPark {
 		void destroy_way(Way *current);
 
 		Int operator [] (const int index);
+		Iterator begin();
+		Iterator end();
 
 		virtual ~NArray();
 	};	// class NArray
@@ -119,7 +124,7 @@ namespace narrayPark {
 		NArray *arr;
 
 	public:
-		Int(int index, int _level, void *_data = NULL, NArray *_arr = NULL);
+		Int(int index, int _level = 0, void *_data = NULL, NArray *_arr = NULL);
 		Int(const Int& other);
 
 		Int operator [] (const int index);
@@ -130,3 +135,5 @@ namespace narrayPark {
 	};
 
 } // narrayPark
+
+#endif  // _NARRAY_H_
