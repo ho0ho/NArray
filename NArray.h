@@ -61,6 +61,18 @@ namespace narrayPark {
 				return itr;
 			}
 
+			Iterator& operator = (const Iterator& right) {
+				if (this == &right) return (*this);
+				if (arr != right.arr) {
+					delete[] loc;
+					arr = right.arr;
+					loc = new int[arr->dim];
+				}
+				for (int i = 0; i < arr->dim; i++)
+					loc[i] = right.loc[i];
+				return (*this);
+			}
+
 		};
 
 	public:
