@@ -22,6 +22,7 @@ namespace narrayPark {
 		};
 		Way *root;
 
+	public:
 		class Iterator
 		{
 		private:
@@ -54,7 +55,7 @@ namespace narrayPark {
 						carry = true;
 						loc[i--] = 0;
 					}
-					else carry = false;					
+					else carry = false;
 				} while (carry && i >= 0);
 			}
 
@@ -102,7 +103,6 @@ namespace narrayPark {
 			}
 		};
 
-	public:
 		NArray(int _dim, int *_size);
 		NArray(const NArray& other);
 
