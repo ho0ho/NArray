@@ -2,3 +2,8 @@
 *.filters
 *.user
 main.cpp
+*.obj
+*.log
+*.pdb
+*.idb
+*.tlog
