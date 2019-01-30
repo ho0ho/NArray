@@ -53,7 +53,6 @@ namespace narrayPark {
 				str += ")";
 				return str;
 			}
-
 			// Int가 정의된 후에 구현할수 있으므로 선언만 한다.
 			Int operator * ();
 
