@@ -1,4 +1,6 @@
 #include "NArray.h"
+#include <iostream>			// NULL
+using namespace std;
 
 namespace narrayPark {
 	class NArray;
@@ -12,6 +14,7 @@ namespace narrayPark {
 			size[i] = _size[i];
 		root = new Way;
 		root->level = 0;
+		root->next = NULL;
 		initialize_way(root);
 	}
 
@@ -21,27 +24,29 @@ namespace narrayPark {
 		for (int i = 0; i < dim; i++)
 			size[i] = other.size[i];
 		root = new Way;
-		// ?? 
+		root->level = 0;
+		root->next = NULL;
+		initialize_way(root); // 구조만 옮겨옴
 	}
-	
+
 	void NArray::initialize_way(Way *current)
 	{
 		if (!current) return;
-		if (current->level == dim - 1) 
+		if (current->level == dim - 1)
 			current->next = new int[size[current->level]];
-		else {	
+		else {
 			current->next = new Way[size[current->level]];
 			for (int i = 0; i < size[current->level]; i++) {
 				(static_cast<Way *>(current->next) + i)->level = current->level + 1;
-				initialize_way(static_cast<Way *>(current->next));
+				initialize_way(static_cast<Way *>(current->next) + i);
 			}
 		}
 	}
 
-	void NArray::destroy_way(Way *current) 
+	void NArray::destroy_way(Way *current)
 	{
 		if (!current) return;
-		if (current->level == dim - 1) 
+		if (current->level == dim - 1)
 			delete[] current->next;
 		else {
 			for (int i = 0; i < size[current->level]; i++) {
@@ -50,7 +55,7 @@ namespace narrayPark {
 		}
 	}
 
-	Int NArray::operator [] (const int index) 
+	Int NArray::operator [] (const int index)
 	{
 		return Int(index, 1, static_cast<void *>(root), this);
 	}
@@ -61,7 +66,7 @@ namespace narrayPark {
 			loc[i] = 0;
 		Iterator start(this, loc);
 		delete[] loc;
-		return start;		
+		return start;
 	}
 
 	NArray::Iterator NArray::end() {
@@ -80,43 +85,50 @@ namespace narrayPark {
 		delete[] size;
 	}
 
-	Int::Int(int index, int _level, void *_data, NArray *_arr) 
-		: level(_level), arr(_arr)
+	Int::Int(int index, int _level, void *_data, NArray *_arr)
+		: level(_level), arr(_arr), data(_data)
 	{
 		if (index < 0 || level < 1 || index >= arr->size[level - 1]) {
 			data = NULL;
 			return;
 		}
 
-		if (level == arr->dim) 
-			data = static_cast<void *>(static_cast<int *>(static_cast<NArray::Way *>(data)->next) + index);
+		if (level == arr->dim)
+			data = static_cast<int *>(static_cast<NArray::Way *>(data)->next) + index;
 		else
-			data = static_cast<void *>(static_cast<NArray::Way *>(static_cast<NArray::Way *>(data)->next) + index);
+			data = static_cast<NArray::Way *>(static_cast<NArray::Way *>(data)->next) + index;
 	}
 
-	Int::Int(const Int& other) 
-		: level(other.level), 
-		  data(other.data), 
-		  arr(other.arr) {}
+	Int::Int(const Int& other)
+		: level(other.level),
+		data(other.data),
+		arr(other.arr) {}
 
-	Int Int::operator [] (const int index) 
+	Int Int::operator [] (const int index)
 	{
 		if (!data) return 0;
 		return Int(index, level + 1, data, arr);
 	}
 
-	Int::operator int() 
+	Int::operator int()
 	{
 		if (!data) return 0;
 		return *(static_cast<int *>(data));
 	}
 
-	Int& Int::operator = (const int& right) 
+	Int& Int::operator = (const int& right)
 	{
 		if (data) *(static_cast<int *>(data)) = right;
 		return *this;
 	}
 
-	Int::~Int() {}	
+	Int::~Int() {}
+
+	Int NArray::Iterator::operator * () {
+		Int data = arr->operator [] (loc[0]);
+		for (int i = 1; i < arr->dim; i++)
+			data = data[loc[i]];
+		return data;
+	}
 
 } // narrayPark
