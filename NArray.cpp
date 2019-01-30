@@ -93,11 +93,7 @@ namespace narrayPark {
 			return;
 		}
 
-<<<<<<< HEAD
 		if (level == arr->dim)
-=======
-		if (level == arr->dim)			
->>>>>>> a01bda50dc3601c3c6ce67d49eb88d164eb2f5bc
 			data = static_cast<int *>(static_cast<NArray::Way *>(data)->next) + index;
 		else
 			data = static_cast<NArray::Way *>(static_cast<NArray::Way *>(data)->next) + index;
@@ -127,13 +123,6 @@ namespace narrayPark {
 	}
 
 	Int::~Int() {}
-
-	Int NArray::Iterator::operator * () {
-		Int data = arr->operator [] (loc[0]);
-		for (int i = 1; i < arr->dim; i++)
-			data = data[loc[i]];
-		return data;
-	}
 
 	Int NArray::Iterator::operator * () {
 		Int data = arr->operator [] (loc[0]);
