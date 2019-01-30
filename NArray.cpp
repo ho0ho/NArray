@@ -1,4 +1,6 @@
 #include "NArray.h"
+#include <iostream>			// NULL
+using namespace std;
 
 namespace narrayPark {
 	class NArray;
@@ -12,6 +14,7 @@ namespace narrayPark {
 			size[i] = _size[i];
 		root = new Way;
 		root->level = 0;
+		root->next = NULL;
 		initialize_way(root);
 	}
 
@@ -21,7 +24,9 @@ namespace narrayPark {
 		for (int i = 0; i < dim; i++)
 			size[i] = other.size[i];
 		root = new Way;
-		// ?? 
+		root->level = 0;
+		root->next = NULL;
+		initialize_way(root); // 구조만 옮겨옴
 	}
 	
 	void NArray::initialize_way(Way *current)
@@ -33,7 +38,7 @@ namespace narrayPark {
 			current->next = new Way[size[current->level]];
 			for (int i = 0; i < size[current->level]; i++) {
 				(static_cast<Way *>(current->next) + i)->level = current->level + 1;
-				initialize_way(static_cast<Way *>(current->next));
+				initialize_way(static_cast<Way *>(current->next) + i);
 			}
 		}
 	}
@@ -80,18 +85,18 @@ namespace narrayPark {
 		delete[] size;
 	}
 
-	Int::Int(int index, int _level, void *_data, NArray *_arr) 
-		: level(_level), arr(_arr)
+	Int::Int(int index, int _level, void *_data, NArray *_arr)
+		: level(_level), arr(_arr), data(_data)
 	{
 		if (index < 0 || level < 1 || index >= arr->size[level - 1]) {
 			data = NULL;
 			return;
 		}
 
-		if (level == arr->dim) 
-			data = static_cast<void *>(static_cast<int *>(static_cast<NArray::Way *>(data)->next) + index);
+		if (level == arr->dim)			
+			data = static_cast<int *>(static_cast<NArray::Way *>(data)->next) + index;
 		else
-			data = static_cast<void *>(static_cast<NArray::Way *>(static_cast<NArray::Way *>(data)->next) + index);
+			data = static_cast<NArray::Way *>(static_cast<NArray::Way *>(data)->next) + index;
 	}
 
 	Int::Int(const Int& other) 
@@ -118,5 +123,12 @@ namespace narrayPark {
 	}
 
 	Int::~Int() {}	
+
+	Int NArray::Iterator::operator * () {
+		Int data = arr->operator [] (loc[0]);
+		for (int i = 1; i < arr->dim; i++)
+			data = data[loc[i]];
+		return data;
+	}
 
 } // narrayPark
