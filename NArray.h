@@ -1,7 +1,7 @@
 #pragma once
 // narray.h
 
-#include <iostream>
+#include <iostream>			// NULL
 #include <string>
 using namespace std;
 
@@ -45,14 +45,14 @@ namespace narrayPark {
 					loc[i] = other.loc[i];
 			}
 
-			string print_loc() const {
+			string print_loc() {
 				string str = "(";
-				for (int i = 0; i < arr->dim; i++) {
+				for (int i = 0; i < arr->dim; i++)
 					str += to_string(loc[i]) + " ";
-				}
 				str += ")";
 				return str;
 			}
+
 			// Int가 정의된 후에 구현할수 있으므로 선언만 한다.
 			Int operator * ();
 
@@ -70,7 +70,6 @@ namespace narrayPark {
 					}
 					else carry = false;
 				} while (carry && i >= 0);
-				return *this;
 			}
 
 			const Iterator operator ++ (int) {
@@ -123,7 +122,7 @@ namespace narrayPark {
 		virtual ~NArray();
 	};	// class NArray
 
-	class Int
+	class Int 
 	{
 	private:
 		int level;
@@ -137,9 +136,9 @@ namespace narrayPark {
 		Int operator [] (const int index);
 		operator int();
 		Int& operator = (const int& right);
-
+	
 		virtual ~Int();
-	}; // class Int
+	};
 
 } // narrayPark
 

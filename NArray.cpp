@@ -1,5 +1,6 @@
 #include "NArray.h"
-#include <iostream>			// NULL
+
+#include <iostream>
 using namespace std;
 
 namespace narrayPark {
@@ -26,7 +27,7 @@ namespace narrayPark {
 		root = new Way;
 		root->level = 0;
 		root->next = NULL;
-		initialize_way(root); // 구조만 옮겨옴
+		initialize_way(root);
 	}
 
 	void NArray::initialize_way(Way *current)
@@ -124,7 +125,8 @@ namespace narrayPark {
 
 	Int::~Int() {}
 
-	Int NArray::Iterator::operator * () {
+	Int NArray::Iterator::operator * ()
+	{
 		Int data = arr->operator [] (loc[0]);
 		for (int i = 1; i < arr->dim; i++)
 			data = data[loc[i]];
