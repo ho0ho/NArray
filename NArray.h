@@ -43,6 +43,13 @@ namespace narrayPark {
 					loc[i] = other.loc[i];
 			}
 
+			void print() const {
+				cout << "( ";
+				for (int i = 0; i < arr->dim; i++)
+					cout << loc[i] << " ";
+				cout << ")";
+			}
+
 			// prefix
 			Iterator& operator ++ () {
 				if (loc[0] >= arr->size[0]) return (*this);
