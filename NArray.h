@@ -2,6 +2,8 @@
 // narray.h
 
 #include <iostream>
+#include <string>
+using namespace std;
 
 #ifndef _NARRAY_H_
 #define _NARRAY_H_
@@ -43,6 +45,9 @@ namespace narrayPark {
 					loc[i] = other.loc[i];
 			}
 
+			// Int가 정의된 후에 구현할수 있으므로 선언만 한다.
+			Int operator * ();
+
 			// prefix
 			Iterator& operator ++ () {
 				if (loc[0] >= arr->size[0]) return (*this);
@@ -51,12 +56,13 @@ namespace narrayPark {
 				int i = arr->dim - 1;
 				do {
 					loc[i]++;
-					if (i >= arr->size[i] && i >= 1) {
+					if (loc[i] >= arr->size[i] && i >= 1) {
 						carry = true;
 						loc[i--] = 0;
 					}
 					else carry = false;
 				} while (carry && i >= 0);
+				return *this;
 			}
 
 			const Iterator operator ++ (int) {
@@ -77,17 +83,10 @@ namespace narrayPark {
 				return (*this);
 			}
 
-			Int operator * () {
-				Int data = arr->operator [] (loc[0]);
-				for (int i = 1; i < arr->dim; i++)
-					data = data[loc[i]];
-				return data;
-			}
-
 			bool operator == (const Iterator& right) {
 				if (arr == right.arr) {
 					int i;
-					for (i = 0; i < arr->dim && loc[i] != right.loc[i]; i++);
+					for (i = 0; i < arr->dim && loc[i] == right.loc[i]; i++);
 					if (i >= arr->dim) return true;
 					else return false;
 				}
@@ -116,7 +115,7 @@ namespace narrayPark {
 		virtual ~NArray();
 	};	// class NArray
 
-	class Int 
+	class Int
 	{
 	private:
 		int level;
@@ -130,9 +129,9 @@ namespace narrayPark {
 		Int operator [] (const int index);
 		operator int();
 		Int& operator = (const int& right);
-	
+
 		virtual ~Int();
-	};
+	}; // class Int
 
 } // narrayPark
 
